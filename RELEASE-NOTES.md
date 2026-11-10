@@ -1,3 +1,5 @@
-First public preview for Apple silicon Macs running macOS 15 or later.
+The virtual MIDI port and Melodics profile are now called **Maschine 4x4**. The local profile file is `maschine_4x4.json`.
 
-The app connects Melodics to Maschine+ with all 16 pads, colored hand cues, and white Preview flashes. See the README for setup requirements, including the local Melodics Maschine+ LED profile and Python 3.9 or later. The download is locally signed and is not notarized by Apple. Maschine MK3 hardware has not been physically verified.
+After updating, start the bridge, reopen Melodics, and select **Maschine 4x4**. Existing profile files are preserved.
+
+The Apple silicon app requires macOS 15 or later. The physical workflow was verified on Maschine+. The bridge also recognizes Maschine MK3, whose physical workflow has not been verified in this project.

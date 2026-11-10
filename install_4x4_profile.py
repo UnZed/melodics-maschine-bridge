@@ -8,12 +8,14 @@ from maschine_profile_probe import BRIDGE_PORT, BRIDGE_PROFILE, PROFILE
 def install_profile():
     if BRIDGE_PROFILE.is_file():
         return
-    if not PROFILE.is_file():
+    legacy = BRIDGE_PROFILE.with_name("mlp_maschine_4x4.json")
+    source = PROFILE if PROFILE.is_file() else legacy
+    if not source.is_file():
         raise RuntimeError(
             "The local Melodics Maschine+ LED profile is missing "
             "(ni_maschine_plus.json). See the setup requirements in the README."
         )
-    profile = json.loads(PROFILE.read_bytes())
+    profile = json.loads(source.read_bytes())
     profile["name"] = BRIDGE_PORT
     for field in ("ports", "outports"):
         profile[field] = {"mac": BRIDGE_PORT, "win": BRIDGE_PORT}

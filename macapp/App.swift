@@ -18,7 +18,7 @@ final class BridgeApp: NSObject, NSApplicationDelegate {
         let title = NSTextField(labelWithString: "Melodics → Maschine")
         title.font = .systemFont(ofSize: 26, weight: .semibold)
         let instruction = NSTextField(wrappingLabelWithString:
-            "Connect your Maschine over USB. Start the bridge, then open Melodics and select MLP Maschine 4x4.")
+            "Connect your Maschine over USB. Start the bridge, then open Melodics and select Maschine 4x4.")
         instruction.textColor = .secondaryLabelColor
         status.font = .systemFont(ofSize: 13, weight: .medium)
         action.target = self
@@ -92,8 +92,8 @@ final class BridgeApp: NSObject, NSApplicationDelegate {
             status.stringValue = stopping ? "Bridge stopped." : "The bridge stopped. Open the log for details."
         } else if !stopping && status.stringValue == "Connecting to Maschine…" {
             let log = (try? String(contentsOf: logURL, encoding: .utf8)) ?? ""
-            if log.contains("READY: MLP Maschine 4x4") {
-                status.stringValue = "Running · MLP Maschine 4x4"
+            if log.contains("READY: Maschine 4x4") {
+                status.stringValue = "Running · Maschine 4x4"
             }
         }
     }

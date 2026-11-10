@@ -6,8 +6,8 @@
   <key>CFBundleIdentifier</key><string>local.mlp.melodics-maschine-bridge</string>
   <key>CFBundleName</key><string>Melodics Maschine Bridge</string>
   <key>CFBundlePackageType</key><string>APPL</string>
-  <key>CFBundleShortVersionString</key><string>0.1.0</string>
-  <key>CFBundleVersion</key><string>1</string>
+  <key>CFBundleShortVersionString</key><string>0.1.1</string>
+  <key>CFBundleVersion</key><string>2</string>
   <key>CFBundleIconFile</key><string>Bridge.icns</string>
   <key>NSHighResolutionCapable</key><true/>
 </dict>

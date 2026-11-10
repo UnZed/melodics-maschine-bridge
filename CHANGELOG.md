@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Renamed the virtual port and Melodics profile to Maschine 4x4.
+- Upgrades can reuse the v0.1.0 profile while preserving the old file.
+
 ## 0.1.0
 
 First public preview.

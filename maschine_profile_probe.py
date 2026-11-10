@@ -8,8 +8,8 @@ import subprocess
 ROOT = Path(__file__).resolve().parent
 PROFILE = (Path.home() / "Library/Application Support/Melodics/Melodics/devices"
            / "ni_maschine_plus.json")
-BRIDGE_PORT = "MLP Maschine 4x4"
-BRIDGE_PROFILE = PROFILE.with_name("mlp_maschine_4x4.json")
+BRIDGE_PORT = "Maschine 4x4"
+BRIDGE_PROFILE = PROFILE.with_name("maschine_4x4.json")
 NOTE = re.compile(r"90 ([0-7][0-9A-F]) ([0-7][0-9A-F])")
 
 
