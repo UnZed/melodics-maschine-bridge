@@ -1,6 +1,6 @@
 # Melodics Maschine Bridge
 
-Use a Native Instruments Maschine MK3/Plus as a 4×4 pad controller for Melodics on macOS. The bridge sends pad strikes and releases to Melodics and mirrors lesson cues on the physical pads. It runs in a small macOS window with Start, Stop, and Open Log controls.
+Bring Melodics’ on-screen pad cues to your Native Instruments Maschine MK3/Plus. As you play on macOS, the physical pads mirror the blue and yellow hand cues and light up in sync with the lesson.
 
 ## What works
 
