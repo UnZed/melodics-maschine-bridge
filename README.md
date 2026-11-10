@@ -1,6 +1,6 @@
 # Melodics Maschine Bridge
 
-Use a Native Instruments Maschine as a 4×4 pad controller for Melodics on macOS. The bridge sends pad strikes and releases to Melodics and mirrors lesson cues on the physical pads. It runs in a small macOS window with Start, Stop, and Open Log controls.
+Use a Native Instruments Maschine MK3/Plus as a 4×4 pad controller for Melodics on macOS. The bridge sends pad strikes and releases to Melodics and mirrors lesson cues on the physical pads. It runs in a small macOS window with Start, Stop, and Open Log controls.
 
 ## What works
 
@@ -13,25 +13,25 @@ Use a Native Instruments Maschine as a 4×4 pad controller for Melodics on macOS
 
 - This preview build targets Apple silicon and macOS 15 or later. It uses the system Python 3 launcher, which may require Apple's Command Line Tools or Xcode. Python 3.9 or later is required.
 - Melodics desktop for macOS, initialized at least once.
-- A USB-connected Maschine+ in Controller mode, with the Native Instruments Host Integration Agent installed and running. The code recognizes Maschine MK3, but the physical workflow was tested on Maschine+.
-- A local Melodics Maschine+ LED profile at `~/Library/Application Support/Melodics/Melodics/devices/ni_maschine_plus.json` or an already configured `maschine_4x4.json`. The bridge creates the latter from the former when needed. When upgrading from v0.1.0, the bridge can also copy the existing profile to the new name. A stock installation without a compatible LED profile cannot currently complete setup.
+- A USB-connected Maschine MK3/Plus with the Native Instruments Host Integration Agent installed and running. Physical testing covered the Plus model.
+- A local Melodics LED profile at `~/Library/Application Support/Melodics/Melodics/devices/ni_maschine_plus.json` or an already configured `maschine_4x4.json`. The bridge creates the latter from the former when needed. When upgrading from v0.1.0, the bridge can also copy the existing profile to the new name. A stock installation without a compatible LED profile cannot currently complete setup.
 
 ## Install and run
 
 1. Download the app ZIP from the release, unzip it, and move the app to Applications if desired. The preview is locally signed and is not notarized by Apple.
-2. Quit Melodics and stop any other bridge session. Connect the Maschine over USB and switch a Maschine+ to Controller mode.
+2. Quit Melodics and stop any other bridge session. Connect the Maschine MK3/Plus over USB. If the Plus is running standalone, switch it to Controller mode.
 3. Open **Melodics Maschine Bridge** and click **Start Bridge**.
 4. When the app shows **Running · Maschine 4x4**, open Melodics. Select **Pads**, then choose **Maschine 4x4** under **Connected Instruments**.
 5. Open a Pads lesson and start **Preview**. To check input, strike a pad outside Preview or start a performance.
 
-Melodics handles audio separately. To listen through Maschine+, select **Maschine Plus** under Melodics audio settings and choose output pair **1–2**. On the Maschine+, **Outputs Main → + Phones** mirrors the main signal to headphones.
+Melodics handles audio separately. To listen through the Maschine MK3/Plus, select its audio device under Melodics audio settings and choose output pair **1–2**. On the Plus model, **Outputs Main → + Phones** mirrors the main signal to headphones.
 
 ## Troubleshooting
 
 - After upgrading from v0.1.0, select **Maschine 4x4** in Melodics. The previous profile file is preserved.
 - If the profile does not appear, quit and reopen Melodics after the bridge shows **Running**.
 - If the bridge stops, click **Open Log**. The latest run is saved under `~/Library/Logs/Melodics Maschine Bridge/bridge.log`. Review the log before sharing it because it can include device diagnostics.
-- Connect exactly one supported Maschine over USB. Close other apps using Maschine hardware control while testing.
+- Connect exactly one Maschine MK3/Plus over USB. Close other apps controlling the hardware while testing.
 - To uninstall the bridge, delete the app. To remove its custom Melodics profile, remove `maschine_4x4.json` from the Melodics devices folder while Melodics is closed.
 
 ## Build from source
