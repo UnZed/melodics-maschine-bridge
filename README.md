@@ -24,8 +24,6 @@ Use a Native Instruments Maschine MK3/Plus as a 4×4 pad controller for Melodics
 4. When the app shows **Running · Maschine 4x4**, open Melodics. Select **Pads**, then choose **Maschine 4x4** under **Connected Instruments**.
 5. Open a Pads lesson and start **Preview**. To check input, strike a pad outside Preview or start a performance.
 
-Melodics handles audio separately. To listen through the Maschine MK3/Plus, select its audio device under Melodics audio settings and choose output pair **1–2**. On the Plus model, **Outputs Main → + Phones** mirrors the main signal to headphones.
-
 ## Troubleshooting
 
 - If the profile does not appear, quit and reopen Melodics after the bridge shows **Running**.
