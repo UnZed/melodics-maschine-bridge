@@ -14,7 +14,7 @@ Use a Native Instruments Maschine MK3/Plus as a 4×4 pad controller for Melodics
 - This preview build targets Apple silicon and macOS 15 or later. It uses the system Python 3 launcher, which may require Apple's Command Line Tools or Xcode. Python 3.9 or later is required.
 - Melodics desktop for macOS, initialized at least once.
 - A USB-connected Maschine MK3/Plus with the Native Instruments Host Integration Agent installed and running. Physical testing covered the Plus model.
-- A local Melodics LED profile at `~/Library/Application Support/Melodics/Melodics/devices/ni_maschine_plus.json` or an already configured `maschine_4x4.json`. The bridge creates the latter from the former when needed. When upgrading from v0.1.0, the bridge can also copy the existing profile to the new name. A stock installation without a compatible LED profile cannot currently complete setup.
+- The Melodics LED profile `ni_maschine_plus.json` in `~/Library/Application Support/Melodics/Melodics/devices/`. On first start, the bridge uses it to create `maschine_4x4.json` automatically.
 
 ## Install and run
 
@@ -28,7 +28,6 @@ Melodics handles audio separately. To listen through the Maschine MK3/Plus, sele
 
 ## Troubleshooting
 
-- After upgrading from v0.1.0, select **Maschine 4x4** in Melodics. The previous profile file is preserved.
 - If the profile does not appear, quit and reopen Melodics after the bridge shows **Running**.
 - If the bridge stops, click **Open Log**. The latest run is saved under `~/Library/Logs/Melodics Maschine Bridge/bridge.log`. Review the log before sharing it because it can include device diagnostics.
 - Connect exactly one Maschine MK3/Plus over USB. Close other apps controlling the hardware while testing.
