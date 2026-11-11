@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- The physical PLAY button triggers the Space shortcut in Melodics.
+
 ## 0.1.1
 
 - Renamed the virtual port and Melodics profile to Maschine 4x4.

@@ -5,6 +5,7 @@ Bring Melodics’ on-screen pad cues to your Native Instruments Maschine MK3/Plu
 ## What works
 
 - All 16 pads send note-on and note-off events with strike velocity.
+- The physical **PLAY** button triggers the Melodics Space shortcut to start or advance a lesson.
 - The pad LEDs show blue for the left hand, yellow for the right hand, and white for the Preview cue.
 - Early, late, and missed-note messages have separate color mappings when the Melodics profile sends them. Missed-note feedback during a performance has not been independently verified.
 - The bridge works with MIDI and the Native Instruments host integration service. It does not capture the screen.
@@ -23,6 +24,8 @@ Bring Melodics’ on-screen pad cues to your Native Instruments Maschine MK3/Plu
 3. Open **Melodics Maschine Bridge** and click **Start Bridge**.
 4. When the app shows **Running · Maschine 4x4**, open Melodics. Select **Pads**, then choose **Maschine 4x4** under **Connected Instruments**.
 5. Open a Pads lesson and start **Preview**. To check input, strike a pad outside Preview or start a performance.
+
+The first time you press **PLAY**, macOS may ask for Accessibility permission. Allow **Melodics Maschine Bridge** under **System Settings → Privacy & Security → Accessibility**, then return to Melodics and press **PLAY** again.
 
 ## Troubleshooting
 

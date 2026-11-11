@@ -1,5 +1,5 @@
-The virtual MIDI port and Melodics profile are now called **Maschine 4x4**. The local profile file is `maschine_4x4.json`.
+Press **PLAY** on the Maschine MK3/Plus to trigger the Melodics Space shortcut. This lets you start or advance a lesson from the controller. The workflow was verified on Maschine+.
 
-After updating, start the bridge, reopen Melodics, and select **Maschine 4x4**. Existing profile files are preserved.
+On first use, macOS may ask you to enable Accessibility for **Melodics Maschine Bridge**. After granting access, return to Melodics and press **PLAY** again.
 
-The Apple silicon app requires macOS 15 or later. The physical workflow was verified on Maschine+. The bridge also recognizes Maschine MK3, whose physical workflow has not been verified in this project.
+The download is an Apple silicon preview for macOS 15 or later. See the README for setup requirements.

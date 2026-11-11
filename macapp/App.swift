@@ -1,4 +1,5 @@
 import AppKit
+import CoreGraphics
 
 final class BridgeApp: NSObject, NSApplicationDelegate {
     private let window = NSWindow(
@@ -13,6 +14,9 @@ final class BridgeApp: NSObject, NSApplicationDelegate {
     private var bridge: Process?
     private var timer: Timer?
     private var stopping = false
+    private var logReader: FileHandle?
+    private var pendingLog = Data()
+    private var requestedKeyboardAccess = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         let title = NSTextField(labelWithString: "Melodics → Maschine")
@@ -69,12 +73,15 @@ final class BridgeApp: NSObject, NSApplicationDelegate {
             defer { try? output.close() }
             child.standardOutput = output
             child.standardError = output
+            let reader = try FileHandle(forReadingFrom: logURL)
             try child.run()
+            logReader = reader
+            pendingLog.removeAll()
             bridge = child
             stopping = false
             action.title = "Stop Bridge"
             status.stringValue = "Connecting to Maschine…"
-            timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
                 self?.refresh()
             }
         } catch {
@@ -86,16 +93,55 @@ final class BridgeApp: NSObject, NSApplicationDelegate {
         guard let bridge else { return }
         if !bridge.isRunning {
             timer?.invalidate()
+            try? logReader?.close()
+            logReader = nil
             self.bridge = nil
             action.isEnabled = true
             action.title = "Start Bridge"
             status.stringValue = stopping ? "Bridge stopped." : "The bridge stopped. Open the log for details."
-        } else if !stopping && status.stringValue == "Connecting to Maschine…" {
-            let log = (try? String(contentsOf: logURL, encoding: .utf8)) ?? ""
-            if log.contains("READY: Maschine 4x4") {
+        } else if !stopping {
+            readBridgeEvents()
+        }
+    }
+
+    private func readBridgeEvents() {
+        guard let bytes = try? logReader?.read(upToCount: 65536), !bytes.isEmpty else { return }
+        pendingLog.append(bytes)
+        while let newline = pendingLog.firstIndex(of: 10) {
+            let line = Data(pendingLog[..<newline])
+            pendingLog.removeSubrange(...newline)
+            if line.starts(with: Data("READY: Maschine 4x4".utf8)) {
                 status.stringValue = "Running · Maschine 4x4"
+            } else if line.range(of: Data("play_button".utf8)) != nil,
+                      let event = (try? JSONSerialization.jsonObject(with: line)) as? [String: Any],
+                      event["event"] as? String == "play_button",
+                      event["pressed"] as? Bool == true {
+                sendSpaceToMelodics()
             }
         }
+    }
+
+    private func sendSpaceToMelodics() {
+        guard let target = NSRunningApplication.runningApplications(
+            withBundleIdentifier: "com.melodics.melodics"
+        ).first else { return }
+        guard CGPreflightPostEventAccess() else {
+            status.stringValue = "Enable Accessibility for this app to use PLAY."
+            if !requestedKeyboardAccess {
+                requestedKeyboardAccess = true
+                _ = CGRequestPostEventAccess()
+            }
+            return
+        }
+
+        // macOS virtual key code 49 is the space bar.
+        guard let down = CGEvent(keyboardEventSource: nil, virtualKey: 49, keyDown: true),
+              let up = CGEvent(keyboardEventSource: nil, virtualKey: 49, keyDown: false) else { return }
+        down.flags = []
+        up.flags = []
+        down.postToPid(target.processIdentifier)
+        up.postToPid(target.processIdentifier)
+        status.stringValue = "Running · PLAY sent to Melodics"
     }
 
     @objc private func openLog() {

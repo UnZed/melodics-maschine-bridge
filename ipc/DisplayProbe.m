@@ -8,6 +8,7 @@
 
 static atomic_bool serverStop;
 static MLPPadInspector *padInspector;
+static BOOL playHeld;
 
 // Independent, bounded diagnostic using NI's local agent IPC.
 // Wire format reference: terminar/rebellion (see display/README.md).
@@ -52,6 +53,15 @@ static CFDataRef notification(CFMessagePortRef port,SInt32 msgid,CFDataRef data,
         for(NSDictionary *event in [padInspector consumeBatch:packet time:NSProcessInfo.processInfo.systemUptime]) {
             NSString *type=event[@"kind"];
             if([type isEqual:@"hit_candidate"] || [type isEqual:@"release_candidate"]) emit(event);
+        }
+    }
+    // Native button ID 45 is PLAY. The LED slot has a separate ID.
+    if(info && padInspector && kind==0x03734e00 && packet.length>=21 &&
+       read32(packet,12)==1 && read32(packet,16)==45) {
+        uint8_t state=((const uint8_t *)packet.bytes)[20];
+        if(state<=1 && playHeld!=(state==1)) {
+            playHeld=state==1;
+            emit(@{@"event":@"play_button",@"pressed":@(playHeld)});
         }
     }
     uint32_t yes=CFSwapInt32HostToLittle(0x74727565);
